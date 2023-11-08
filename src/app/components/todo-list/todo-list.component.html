@@ -1,0 +1,18 @@
+
+    <div class="todo-app">
+        <h2 [ngStyle]="{'color': 'rgb(15, 54, 52)', 'font-family': 'serif'}">To-Do List</h2>
+        <input [(ngModel)]="newTodo" (keyup.enter)="addTodo()" placeholder="Add a new task"  [ngStyle]="{'color': 'rgb(15, 54, 52)', 'font-family': 'serif'}"/>
+        <button [ngStyle]="{'color': 'rgb(15, 54, 52)', 'font-family': 'serif'}" (click)="addTodo()">Add</button>
+        <ul>
+          <li *ngFor="let todo of todos" [ngClass]="{ 'completed': todo.completed, 'postponed': todo.postponed }">
+            <span (click)="toggleComplete(todo)">{{ todo.text }}</span>
+            <input *ngIf="todo.editing" [(ngModel)]="todo.text" (keyup.enter)="saveEdit(todo)" (keyup.escape)="cancelEdit(todo)" />
+            <button [ngStyle]="{'color': 'rgb(15, 54, 52)', 'font-family': 'serif'}" (click)="edit(todo)" *ngIf="!todo.completed && !todo.editing">Edit</button>
+            <button [ngStyle]="{'color': 'rgb(15, 54, 52)', 'font-family': 'serif'}" (click)="postpone(todo)" *ngIf="!todo.postponed">Postpone</button>
+            <button [ngStyle]="{'color': 'rgb(15, 54, 52)', 'font-family': 'serif'}" (click)="restore(todo)" *ngIf="todo.postponed">Restore</button>
+            <button [ngStyle]="{'color': 'rgb(15, 54, 52)', 'font-family': 'serif'}" (click)="delete(todo)">Delete</button>
+          </li>
+        </ul>
+        <button [ngStyle]="{'color': 'rgb(15, 54, 52)', 'font-family': 'serif'}" (click)="cleanCompleted()">Clean Completed</button>
+      </div>
+ 
